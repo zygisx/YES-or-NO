@@ -29,10 +29,7 @@ public class MainFrame extends JFrame {
 	 */
 	public static void main(String[] args) {
 		
-		//bank = new Bank();
-		//setUpGame();
-		
-		// create game window.
+		// create game main window.
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,9 +45,6 @@ public class MainFrame extends JFrame {
 		
 	}
 	
-	public void setUpGame () {
-		
-	}
 	/**
 	 * Create the frame.
 	 */
@@ -101,7 +95,7 @@ public class MainFrame extends JFrame {
 		}
 		
 		public void buttonOff (int num) {
-			buttons.get(num).setVisible(false);
+			buttons.get(num).setEnabled(false);
 		}
 		
 		public void actionPerformed(ActionEvent event) {
@@ -117,6 +111,7 @@ public class MainFrame extends JFrame {
 			
 			bank.removeCase(i);
 			System.out.println(bank.getOffer());
+			
 			
 		}
 		

@@ -11,6 +11,7 @@ import java.awt.Color;
 
 public class TopPanel extends JPanel {
 
+	JLabel lbl;
 	/**
 	 * Create the panel.
 	 */
@@ -30,6 +31,6 @@ public class TopPanel extends JPanel {
 	}
 
 	public void setInfo(String text) {
-		
+		lbl.setText(text);
 	}
 }
