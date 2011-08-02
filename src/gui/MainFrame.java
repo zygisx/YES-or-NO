@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import util.Bank;
 
 public class MainFrame extends JFrame {
 
@@ -20,12 +21,16 @@ public class MainFrame extends JFrame {
 	private CenterPanel centerPanel;
 	private LeftPanel leftPanel;
 	private RightPanel rightPanel;
-
+	private Bank bank;
+	private TopPanel topPanel;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		//bank = new Bank();
+		//setUpGame();
 		
 		// create game window.
 		EventQueue.invokeLater(new Runnable() {
@@ -40,15 +45,22 @@ public class MainFrame extends JFrame {
 		});
 		
 		
+		
 	}
 	
-
+	public void setUpGame () {
+		
+	}
 	/**
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		/* set up game */
+		bank = new Bank();
+		
+		/* set up frame */
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 454, 334);
+		setBounds(100, 100, 454, 370);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -65,6 +77,9 @@ public class MainFrame extends JFrame {
 		flowLayout.setVgap(10);
 		centerPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		contentPane.add(centerPanel, BorderLayout.CENTER);
+		
+		topPanel = new TopPanel();
+		contentPane.add(topPanel, BorderLayout.NORTH);
 	}
 	
 	class CenterPanel extends JPanel implements ActionListener {
@@ -79,7 +94,6 @@ public class MainFrame extends JFrame {
 		public CenterPanel() {
 			FlowLayout flowLayout = (FlowLayout) getLayout();
 			flowLayout.setHgap(10);
-			
 			
 			for (int i = 0; i < NUM_OF_BUTTONS; i++ ) {
 				buttons.add( initButton(Integer.toString(i+1)) );
@@ -100,6 +114,10 @@ public class MainFrame extends JFrame {
 			else {
 				rightPanel.labelOff(i-13);
 			}
+			
+			bank.removeCase(i);
+			System.out.println(bank.getOffer());
+			
 		}
 		
 		private JButton initButton (String txt) {

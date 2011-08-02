@@ -16,7 +16,7 @@ public class RightPanel extends LabelsBlock {
 		super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		for (int i = 0; i < NUMBER_OF_LABELS; i++) {
-			labels.add(initLabel(GameUtil.cases[i+NUMBER_OF_LABELS], LABEL_LENGTH));
+			labels.add(initLabel(GameUtil.CASES[i+NUMBER_OF_LABELS], LABEL_LENGTH));
 		}
 	}		
 		

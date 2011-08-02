@@ -20,7 +20,7 @@ public class LeftPanel extends LabelsBlock {
 		super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		for (int i = 0; i < NUMBER_OF_LABELS; i++) {
-			labels.add(initLabel(GameUtil.cases[i], LABEL_LENGTH));
+			labels.add(initLabel(GameUtil.CASES[i], LABEL_LENGTH));
 		}
 	}
 
