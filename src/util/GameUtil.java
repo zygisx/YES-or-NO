@@ -16,7 +16,7 @@ public class GameUtil {
 		};
 	public static final int[] OFFER_STEPS	=
 		{
-			5, 5, 4, 3, 2, 1, 1, 1, 1 
+			6, 5, 4, 3, 2, 2, 1, 1, 1, 1
 		};
 	
 	

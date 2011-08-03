@@ -23,11 +23,12 @@ public class TopPanel extends JPanel {
 		add(lblYesOrNo, BorderLayout.NORTH);
 		lblYesOrNo.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JLabel lbl = new JLabel("Please choose one case.");
+		lbl = new JLabel("Please choose one case.");
 		lbl.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		lbl.setVerticalAlignment(SwingConstants.TOP);
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl, BorderLayout.CENTER);
+		
 	}
 
 	public void setInfo(String text) {

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Component;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import util.Bank;
+import util.GameUtil;
 
 public class MainFrame extends JFrame {
 
@@ -23,6 +25,9 @@ public class MainFrame extends JFrame {
 	private RightPanel rightPanel;
 	private Bank bank;
 	private TopPanel topPanel;
+	private int move = 0;
+	private boolean firstMove = true;
+	private ArrayList<Integer> offerStep;
 	
 	/**
 	 * Launch the application.
@@ -51,6 +56,10 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		/* set up game */
 		bank = new Bank();
+		offerStep = new ArrayList<Integer>();
+		for (Integer elem : GameUtil.OFFER_STEPS) {
+			offerStep.add(elem);
+		}
 		
 		/* set up frame */
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +83,7 @@ public class MainFrame extends JFrame {
 		
 		topPanel = new TopPanel();
 		contentPane.add(topPanel, BorderLayout.NORTH);
+		
 	}
 	
 	class CenterPanel extends JPanel implements ActionListener {
@@ -101,6 +111,8 @@ public class MainFrame extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 			int i = 0;
 			while (event.getSource() != buttons.get(i)) i++;
+			
+			/* Gui things */
 			buttonOff(i);
 			if (i < 13) {
 				leftPanel.labelOff(i);
@@ -109,10 +121,32 @@ public class MainFrame extends JFrame {
 				rightPanel.labelOff(i-13);
 			}
 			
+			move++;
 			bank.removeCase(i);
-			System.out.println(bank.getOffer());
 			
+			//System.out.println (offerStep.get(0));
+			if (firstMove) {
+				firstMove = false;
+				System.out.println("first");
+			}
+			else if (offerStep.get(0) == move) {
+				offerStep.remove(0);
+				move = 0;
+				int option = JOptionPane.showConfirmDialog(
+					null,	// to place dialog frame on center of screen.
+					"Bank offer: " + bank.getOffer() + "$\n" +
+					"Do you accept the bank offer?",
+					"Yes or No?",
+					JOptionPane.YES_NO_OPTION);
 			
+				if (option == JOptionPane.YES_OPTION) {
+					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$");
+					/* 
+					 * Not yet implemented.
+					 * need to be endGame;
+					 */
+				}
+			}
 		}
 		
 		private JButton initButton (String txt) {
