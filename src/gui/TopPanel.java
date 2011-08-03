@@ -11,7 +11,8 @@ import java.awt.Color;
 
 public class TopPanel extends JPanel {
 
-	JLabel lbl;
+	private JLabel lbl;
+	private JLabel lblMsg;
 	/**
 	 * Create the panel.
 	 */
@@ -29,9 +30,19 @@ public class TopPanel extends JPanel {
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl, BorderLayout.CENTER);
 		
+		lblMsg = new JLabel(" ");
+		lblMsg.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblMsg.setVerticalAlignment(SwingConstants.TOP);
+		lblMsg.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblMsg, BorderLayout.SOUTH);
+		
 	}
 
 	public void setInfo(String text) {
 		lbl.setText(text);
+	}
+	
+	public void setMessage(String text) {
+		lblMsg.setText(text);
 	}
 }

@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	private Bank bank;
 	private TopPanel topPanel;
 	private int playerCaseValue = 0;
+	private int maxOffer = 0;
 	private int move = 0;
 	private boolean firstMove = true;
 	private boolean gameEnd = false;
@@ -67,7 +68,7 @@ public class MainFrame extends JFrame {
 		
 		/* set up frame */
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 454, 374);
+		setBounds(100, 100, 454, 392);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -134,34 +135,44 @@ public class MainFrame extends JFrame {
 				else {
 					rightPanel.labelOff(index-LeftPanel.NUMBER_OF_LABELS);
 				}
-				
+				topPanel.setMessage("You opened case with value " + String.format("%,d", bank.getValue(i)) + "$.");
 				bank.removeCase(i);
 			}
 			
 			if (offerStep.get(0) == move) {
 				offerStep.remove(0);
 				move = 0;
-				
 				/* left only firstly chosen case */
 				if (bank.casesLeft() == 1) {
-					topPanel.setInfo("Congrats! You don't sell your case for whole game. You have won " + playerCaseValue +"$.");
+					topPanel.setInfo("Congrats! You don't sell your case for whole game.");
+					topPanel.setMessage("You have won " + String.format("%,d", playerCaseValue) +
+							"$. The biggests offer you have is " + String.format("%,d", maxOffer) + "$.");
 					gameEnd = true;
 					return;
 				}
 				
 				int option = JOptionPane.showConfirmDialog(
 					centerPanel,	// to place dialog frame on center of screen.
-					"Bank offer: " + bank.getOffer() + "$\n" +
+					"Bank offer: " + String.format("%,d", bank.getOffer()) + "$\n" +
 					"Do you accept the bank offer?",
 					"Yes or No?",
 					JOptionPane.YES_NO_OPTION);
 				
 				topPanel.setInfo("Choose " + offerStep.get(0) + " cases, to get next bank offer.");
 				
-				if (option == JOptionPane.YES_OPTION) {
-					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$." +
-						" Your case holds " + playerCaseValue + "$");
+				
+				if (option == JOptionPane.YES_OPTION) {		/* if answer is yes */
+					topPanel.setInfo("Game over. You have won: " + String.format("%,d", bank.getOffer()) + "$." +
+						" Your case holds " + String.format("%,d", playerCaseValue) + "$");
 					gameEnd = true;
+					topPanel.setMessage("The biggests offer you had is " + String.format("%,d", maxOffer) + "$.");
+				}
+				else {	/* if answer is no */
+					topPanel.setMessage("You discarded bank offer " + String.format("%,d", bank.getOffer()) + "$.");
+				}
+				
+				if (maxOffer < bank.getOffer() ) {	// find biggest offer
+					maxOffer = bank.getOffer();
 				}
 			}
 		}
