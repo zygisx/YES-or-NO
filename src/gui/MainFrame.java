@@ -117,26 +117,25 @@ public class MainFrame extends JFrame {
 			int i = 0;
 			while (event.getSource() != buttons.get(i)) i++;
 			
-			/* Gui things */
 			buttonOff(i);
-	
 			move++;
-			if (firstMove) {
+			
+			if (firstMove) {	// if it's a first move
 				firstMove = false;
 				move--;		// because first move is not move, player just choose his case.
 				topPanel.setInfo("Now choose " + offerStep.get(0) + " cases, until you get bank offer." );
 				playerCaseValue = bank.getValue(i);
 			}
 			else {	
-				bank.removeCase(i);
-				
-				/* for testing */
-				if (i < 13) {
-					leftPanel.labelOff(i);
+				int index = GameUtil.getIndexOfValue(bank.getValue(i));
+				if (index < LeftPanel.NUMBER_OF_LABELS) {
+					leftPanel.labelOff(index);
 				}
 				else {
-					rightPanel.labelOff(i-13);
+					rightPanel.labelOff(index-LeftPanel.NUMBER_OF_LABELS);
 				}
+				
+				bank.removeCase(i);
 			}
 			
 			if (offerStep.get(0) == move) {

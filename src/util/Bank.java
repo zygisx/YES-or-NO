@@ -1,7 +1,7 @@
 package util;
 
 import java.util.ArrayList;
-
+import java.util.Random;
 
 
 public class Bank {
@@ -20,15 +20,22 @@ public class Bank {
 			caseList.add(new Case(elem));
 			totalSum += elem;
 		}
-		
+		caseList = shuffleCases();
 		totalCases = GameUtil.NUM_OF_CASES;
+		
 	}
 	
 	/**
 	 * In testing stage there is no need to shuffle.
 	 */
-	public void shuffleCases () {
-		// not yet implemented
+	public ArrayList<Case> shuffleCases () {
+		ArrayList<Case> newList = new ArrayList<Case>();
+		Random rand = new Random();
+		
+		for (int i = GameUtil.VALUES.length; i > 0; i-- ) {
+			newList.add(caseList.remove(rand.nextInt(i)));
+		}
+		return newList;
 	}
 	
 	public int removeCase (int index) {

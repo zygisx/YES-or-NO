@@ -7,10 +7,11 @@ import javax.swing.BoxLayout;
 import util.GameUtil;
 
 public class LeftPanel extends LabelsBlock {
-
-	private final int LABEL_LENGTH 		= 15;
-	private final int NUMBER_OF_LABELS 	= 13;
 	
+	public final static int NUMBER_OF_LABELS 	= 13;
+	
+	private final int LABEL_LENGTH 		= 15;
+
 	/**
 	 * Create the panel.
 	 */
