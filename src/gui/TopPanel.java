@@ -24,7 +24,7 @@ public class TopPanel extends JPanel {
 		lblYesOrNo.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lbl = new JLabel("Please choose your main case.");
-		lbl.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		lbl.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lbl.setVerticalAlignment(SwingConstants.TOP);
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl, BorderLayout.CENTER);

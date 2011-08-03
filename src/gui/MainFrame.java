@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
 		
 		/* set up frame */
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 454, 370);
+		setBounds(100, 100, 454, 374);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -119,25 +119,37 @@ public class MainFrame extends JFrame {
 			
 			/* Gui things */
 			buttonOff(i);
-			if (i < 13) {
-				leftPanel.labelOff(i);
-			}
-			else {
-				rightPanel.labelOff(i-13);
-			}
-			
+	
 			move++;
 			if (firstMove) {
 				firstMove = false;
 				move--;		// because first move is not move, player just choose his case.
-				System.out.println("first");
 				topPanel.setInfo("Now choose " + offerStep.get(0) + " cases, until you get bank offer." );
 				playerCaseValue = bank.getValue(i);
 			}
-			bank.removeCase(i);
+			else {	
+				bank.removeCase(i);
+				
+				/* for testing */
+				if (i < 13) {
+					leftPanel.labelOff(i);
+				}
+				else {
+					rightPanel.labelOff(i-13);
+				}
+			}
+			
 			if (offerStep.get(0) == move) {
 				offerStep.remove(0);
 				move = 0;
+				
+				/* left only firstly chosen case */
+				if (bank.casesLeft() == 1) {
+					topPanel.setInfo("Congrats! You don't sell your case for whole game. You have won " + playerCaseValue +"$.");
+					gameEnd = true;
+					return;
+				}
+				
 				int option = JOptionPane.showConfirmDialog(
 					centerPanel,	// to place dialog frame on center of screen.
 					"Bank offer: " + bank.getOffer() + "$\n" +
@@ -148,13 +160,9 @@ public class MainFrame extends JFrame {
 				topPanel.setInfo("Choose " + offerStep.get(0) + " cases, to get next bank offer.");
 				
 				if (option == JOptionPane.YES_OPTION) {
-					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$" +
-						"\n Your case holds " + playerCaseValue + "$");
+					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$." +
+						" Your case holds " + playerCaseValue + "$");
 					gameEnd = true;
-					/* 
-					 * Not yet implemented.
-					 * need to be endGame;
-					 */
 				}
 			}
 		}

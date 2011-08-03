@@ -9,6 +9,7 @@ public class Bank {
 	
 	private int totalCases = 0;
 	private int totalSum = 0;
+	private boolean empty = false;
 	private ArrayList<Case> caseList;
 	
 	public Bank () {
@@ -21,7 +22,6 @@ public class Bank {
 		}
 		
 		totalCases = GameUtil.NUM_OF_CASES;
-		System.out.println(GameUtil.NUM_OF_CASES);
 	}
 	
 	/**
@@ -33,9 +33,9 @@ public class Bank {
 	
 	public int removeCase (int index) {
 		totalCases--;
+		if (totalCases == 0) empty = true;
 		Case oldCase = caseList.set(index, null);
 		totalSum -= oldCase.getValue();
-		System.out.println( (totalCases + " ") + totalSum);
 		return oldCase.getValue();
 		
 	}
@@ -45,10 +45,21 @@ public class Bank {
 	 * In future offer has to be more reasonable.
 	 */
 	public int getOffer () {
-		return totalSum / totalCases;
+		if (! empty)
+			return totalSum / totalCases;
+		else 
+			return totalSum;
 	}
 	
 	public int getValue (int i) {
 		return caseList.get(i).getValue();
+	}
+	
+	public boolean isEmpty () {
+		return empty;
+	}
+	
+	public int casesLeft () {
+		return totalCases;
 	}
 }
