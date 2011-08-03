@@ -32,7 +32,7 @@ public class Bank {
 	}
 	
 	public int removeCase (int index) {
-		totalCases = totalCases - 1;
+		totalCases--;
 		Case oldCase = caseList.set(index, null);
 		totalSum -= oldCase.getValue();
 		System.out.println( (totalCases + " ") + totalSum);
@@ -48,5 +48,7 @@ public class Bank {
 		return totalSum / totalCases;
 	}
 	
-	
+	public int getValue (int i) {
+		return caseList.get(i).getValue();
+	}
 }

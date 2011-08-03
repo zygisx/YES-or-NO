@@ -25,8 +25,10 @@ public class MainFrame extends JFrame {
 	private RightPanel rightPanel;
 	private Bank bank;
 	private TopPanel topPanel;
+	private int playerCaseValue = 0;
 	private int move = 0;
 	private boolean firstMove = true;
+	private boolean gameEnd = false;
 	private ArrayList<Integer> offerStep;
 	
 	/**
@@ -54,6 +56,8 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		super("Yes or No");
+		
 		/* set up game */
 		bank = new Bank();
 		offerStep = new ArrayList<Integer>();
@@ -109,6 +113,7 @@ public class MainFrame extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent event) {
+			if (gameEnd) return;	// if game ended already
 			int i = 0;
 			while (event.getSource() != buttons.get(i)) i++;
 			
@@ -122,25 +127,30 @@ public class MainFrame extends JFrame {
 			}
 			
 			move++;
-			bank.removeCase(i);
-			
-			//System.out.println (offerStep.get(0));
 			if (firstMove) {
 				firstMove = false;
+				move--;		// because first move is not move, player just choose his case.
 				System.out.println("first");
+				topPanel.setInfo("Now choose " + offerStep.get(0) + " cases, until you get bank offer." );
+				playerCaseValue = bank.getValue(i);
 			}
-			else if (offerStep.get(0) == move) {
+			bank.removeCase(i);
+			if (offerStep.get(0) == move) {
 				offerStep.remove(0);
 				move = 0;
 				int option = JOptionPane.showConfirmDialog(
-					null,	// to place dialog frame on center of screen.
+					centerPanel,	// to place dialog frame on center of screen.
 					"Bank offer: " + bank.getOffer() + "$\n" +
 					"Do you accept the bank offer?",
 					"Yes or No?",
 					JOptionPane.YES_NO_OPTION);
-			
+				
+				topPanel.setInfo("Choose " + offerStep.get(0) + " cases, to get next bank offer.");
+				
 				if (option == JOptionPane.YES_OPTION) {
-					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$");
+					topPanel.setInfo("Game over. You have won: " + bank.getOffer() + "$" +
+						"\n Your case holds " + playerCaseValue + "$");
+					gameEnd = true;
 					/* 
 					 * Not yet implemented.
 					 * need to be endGame;
