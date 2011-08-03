@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding = "UTF-8"?>
+
+<project name="yes-or-no" default="Main Build" basedir=".">
+
+
+
+    <property name="bin" location="bin"/>
+
+    <property name="src" location="src"/>
+
+    <property name="jarfile" location="yes-or-no.jar"/>
+	
+
+
+
+     
+
+    <target name="Main Build" depends="Initialize, Compile, Jar">
+
+    </target>
+
+    
+
+    <target name="Initialize">
+
+        <delete dir="${bin}"/>
+
+        <mkdir dir="${bin}"/>
+
+    </target>
+
+
+
+    <target name="Compile" depends="Initialize">
+
+        <javac 
+        	srcdir="${src}" 
+            destdir="${bin}" 	 
+			includeantruntime="false">
+        </javac>
+
+    </target>
+
+
+
+    <target name="Jar" depends="Initialize, Compile">
+
+        <jar destfile="${jarfile}" basedir="${bin}">
+    		<manifest>
+    	    	<attribute name="Main-Class" value="gui.MainFrame"/>
+    			
+            </manifest>
+        </jar>
+    </target>
+
+
+
+</project>
+
