@@ -25,9 +25,6 @@ public class Bank {
 		
 	}
 	
-	/**
-	 * In testing stage there is no need to shuffle.
-	 */
 	public ArrayList<Case> shuffleCases () {
 		ArrayList<Case> newList = new ArrayList<Case>();
 		Random rand = new Random();
